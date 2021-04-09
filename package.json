@@ -1,8 +1,8 @@
 {
-  "name": "electron-api-demos",
-  "productName": "Electron API Demos",
-  "version": "2.0.2",
-  "description": "Electron interactive API demos",
+  "name": "fms",
+  "productName": "FMS DESKTOP",
+  "version": "1.0.0",
+  "description": "FMS DESKTOP",
   "main": "main.js",
   "bin": "cli.js",
   "scripts": {
@@ -23,7 +23,6 @@
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks"
   },
-  "repository": "https://github.com/electron/electron-api-demos",
   "keywords": [
     "Electron",
     "API",

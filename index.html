@@ -27,14 +27,50 @@
   <link rel="import" href="sections/system/clipboard.html">
   <link rel="import" href="sections/system/protocol-handler.html">
   <link rel="import" href="sections/media/desktop-capturer.html">
+  <link rel="import" href="sections/dashboard/main.html">
 </head>
 <body>
 
   <nav class="nav js-nav">
     <header class="nav-header">
-      <h1 class="nav-title">Electron <strong>API Demos</strong></h1>
+      <h1 class="nav-title">My Program <strong>Demos</strong></h1>
       <svg class="nav-header-icon"><use xlink:href="assets/img/icons.svg#icon-electron"></use></svg>
     </header>
+
+    <div class="nav-item u-category-dashboard">
+      <h5 class="nav-category">
+        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-windows"></use></svg>
+        Dashboard
+      </h5>
+      <button type="button" id="button-dashboard" data-section="main" class="nav-button"><em>Dashboard</em></button>
+    </div>
+
+    <div class="nav-item u-category-ocean">
+      <h5 class="nav-category">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDUwIDUwIiBoZWlnaHQ9IjUwcHgiIGlkPSJMYXllcl8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MCA1MCIgd2lkdGg9IjUwcHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxyZWN0IGZpbGw9Im5vbmUiIGhlaWdodD0iNTAiIHdpZHRoPSI1MCIvPjxwYXRoIGQ9IiAgTTQ5LDQ0LjY0NmMtMC40OTQsMC4xNzQtMS4wOTEsMC4yOTYtMS44NDYsMC4yOTZjLTEuNTM4LDAtMy45MDItMC40Mi01LjUzOS0xLjcxYy0xLjYzNywxLjI5LTQsMS43MS01LjUzOCwxLjcxICBzLTMuOTAxLTAuNDItNS41MzktMS43MWMtMS42MzcsMS4yOS00LDEuNzEtNS41MzgsMS43MXMtMy45MDEtMC40Mi01LjUzOS0xLjcxYy0xLjYzNywxLjI5LTQsMS43MS01LjUzOCwxLjcxICBzLTMuOTAxLTAuNDItNS41MzgtMS43MWMtMS42MzcsMS4yOS00LjAwMSwxLjcxLTUuNTM5LDEuNzFjLTAuNjksMC0xLjI5MS0wLjA2Mi0xLjg0Ni0wLjE0NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iICBNNDksNDguNjQ2Yy0wLjQ5NCwwLjE3NC0xLjA5MSwwLjI5Ni0xLjg0NiwwLjI5NmMtMS41MzgsMC0zLjkwMi0wLjQyLTUuNTM5LTEuNzFjLTEuNjM3LDEuMjktNCwxLjcxLTUuNTM4LDEuNzEgIHMtMy45MDEtMC40Mi01LjUzOS0xLjcxYy0xLjYzNywxLjI5LTQsMS43MS01LjUzOCwxLjcxcy0zLjkwMS0wLjQyLTUuNTM5LTEuNzFjLTEuNjM3LDEuMjktNCwxLjcxLTUuNTM4LDEuNzEgIHMtMy45MDEtMC40Mi01LjUzOC0xLjcxYy0xLjYzNywxLjI5LTQuMDAxLDEuNzEtNS41MzksMS43MWMtMC42OSwwLTEuMjkxLTAuMDYyLTEuODQ2LTAuMTQ3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNDQsMzEuMDVjMCwwLjkxOS0wLjkxOSwwLjk1LTAuOTE5LDAuOTVoLTIuMDE1YzAsMC0xLjA2Ni0wLjA2LTEuMDY2LTAuOTc5YzAtMC41MzUsMC0xLjMwNiwwLTEuMzA2ICBzMC4wMzQtMC4zODYsMC42NTMtMC4zODZjMC42MiwwLDAuNjgsMC4zODYsMC42OCwwLjM4NnYwLjhjMCwwLDAuMDYyLDAuMzg3LDAuNjUzLDAuMzg3czAuNjgxLTAuMzg3LDAuNjgxLTAuMzg3di0wLjggIGMwLDAsMC4wNjItMC4zODYsMC42ODItMC4zODZjMC42MjEsMCwwLjY1MSwwLjM4NiwwLjY1MSwwLjM4NlM0NCwzMC41NDYsNDQsMzEuMDV6Ii8+PHBvbHlsaW5lIGZpbGw9Im5vbmUiIHBvaW50cz0iICAzOC43NjYsMjUuODgzIDMwLDE2IDIyLDE2IDIwLDIyIDE1LDIyIDEwLDE2IDYsMTYgOCwyMSA0LjYwNywyNi4wNjIgIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2Utd2lkdGg9IjIiIHgxPSI2LjI1IiB4Mj0iMzYuMzc1IiB5MT0iMjciIHkyPSIyNyIvPjxwYXRoIGQ9IiAgTTMyLjY0Myw0NC4zM2M2Ljg4OS0xLjMxNiwxNC4zMy03LjEzNSwxNi4yODYtMTUuODk3YzAuMTItMC41NDcsMC4xMTctMS4xNTEtMC4yMzMtMS41ODdDNDguMzQ0LDI2LjQwOCw0Ny41NjIsMjYsNDcsMjZoLTlsLTQsNkg3ICBsLTItNkgzYy0xLjAyMSwwLTIsMC45OC0yLDJ2NS41MzljMCw1LjA5NywzLjE1Niw4LjU0Niw2LjEzMywxMC4xMTMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS13aWR0aD0iMi4wMDIxIi8+PGxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLXdpZHRoPSIyIiB4MT0iNy44MzMiIHgyPSIzNS4wNDIiIHkxPSIyMiIgeTI9IjIyIi8+PC9zdmc+" width="16" height="16" style="margin-right: 4px;"/>
+        Ocean
+      </h5>
+      <button type="button" id="button-ocean-import" data-section="main" class="nav-button">Ocean <em>Import</em></button>
+      <button type="button" id="button-ocean-export" data-section="main" class="nav-button">Ocean <em>Export</em></button>
+    </div>
+
+    <div class="nav-item u-category-air">
+      <h5 class="nav-category">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgdmlld0JveD0iMCAwIDY0IDY0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGRhdGEtbmFtZT0iMTgtYWlycGxhbmUiIGlkPSJfMTgtYWlycGxhbmUiPjxwYXRoIGQ9Ik01Ni4yNzQsMjUuMDM5QS45Ny45NywwLDAsMCw1NiwyNUg0MS40OTRsLTMuNC01LjAxQTMsMywwLDAsMCwzOCwxNEgzNC4wM2wtMi43MTUtNEgzMmEzLDMsMCwwLDAsMC02SDI3LjI0NEwyNC44MjcuNDM4QTEsMSwwLDAsMCwyNCwwSDE3YTEsMSwwLDAsMC0uOTYyLDEuMjc1TDIyLjgxNiwyNUgxMi4zMjFMOS44NzgsMjAuNTIxQTEsMSwwLDAsMCw5LDIwSDFhMSwxLDAsMCwwLS44NzgsMS40NzlMNC4yMjQsMjlIM2EzLDMsMCwwLDAsMCw2SDQuMjI1bC00LjEsNy41MjFBMSwxLDAsMCwwLDEsNDRIOWExLDEsMCwwLDAsLjg3OC0uNTIxczQuOTI5LTkuMDc1LDQuOTQ0LTkuMTEyYTIuOTY3LDIuOTY3LDAsMCwwLDAtNC43MzRDMTQuODA3LDI5LjYsMTMuNDEyLDI3LDEzLjQxMiwyN0g1NS44NTVDNTcuNjg2LDI3LjU1NCw2MiwyOS40MTEsNjIsMzJzLTQuMzE0LDQuNDQ1LTYuMTQ1LDVIMTZhMSwxLDAsMCwwLDAsMmg2LjgxN0wxNi4wMzgsNjIuNzI2QTEsMSwwLDAsMCwxNyw2NGg3YTEsMSwwLDAsMCwuODI3LS40MzhMMjcuMjQ0LDYwSDMyYTMsMywwLDAsMCwwLTZoLS42ODVsMi43MTUtNEgzOGEzLDMsMCwwLDAsLjA5NC01Ljk5bDMuNC01LjAxSDU2YTEuMDA3LDEuMDA3LDAsMCwwLC4yNzQtLjAzOEM1Ni41OSwzOC44NzEsNjQsMzYuNyw2NCwzMlM1Ni41OSwyNS4xMjgsNTYuMjc0LDI1LjAzOVpNMi42ODUsMjJIOC40MDZsMy44MTgsN0g2LjVaTTIsMzJhMSwxLDAsMCwxLDEtMUgxM2ExLDEsMCwwLDEsMCwySDNBMSwxLDAsMCwxLDIsMzJaTTguNDA2LDQySDIuNjg1TDYuNSwzNWg1LjcyMlpNMzgsMTZhMSwxLDAsMCwxLDAsMkgzNi43NDRsLTEuMzU3LTJaTTMyLDZhMSwxLDAsMCwxLDAsMkgyOS45NThMMjguNiw2Wk0xOC4zMjYsMkgyMy40N0wzOS4wNzcsMjVIMjQuOVpNMzIsNTZhMSwxLDAsMCwxLDAsMkgyOC42bDEuMzU3LTJabTYtMTBhMSwxLDAsMCwxLDAsMkgzNS4zODdsMS4zNTctMlpNMjMuNDcsNjJIMTguMzI2TDI0LjksMzloMTQuMThaIi8+PHBhdGggZD0iTTU1LjU1MywzNC4xYTEsMSwwLDAsMCwuODk0LDEuNzlBNC42OTMsNC42OTMsMCwwLDAsNTksMzJhNC42OTQsNC42OTQsMCwwLDAtMi41NTMtMy44OTUsMSwxLDAsMCwwLS45LDEuNzg3QTIuNzIzLDIuNzIzLDAsMCwxLDU3LDMyLDIuNzIxLDIuNzIxLDAsMCwxLDU1LjU1MywzNC4xWiIvPjwvZz48L3N2Zz4=" width="16" height="16" style="margin-right: 4px;"/>
+        Air
+      </h5>
+      <button type="button" id="button-air-import" data-section="main" class="nav-button">Air <em>Import</em></button>
+      <button type="button" id="button-air-export" data-section="main" class="nav-button">Air <em>Export</em></button>
+    </div>
+
+    <div class="nav-item u-category-air">
+      <h5 class="nav-category">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgdmlld0JveD0iMCAwIDUxMiA1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlLz48ZyBkYXRhLW5hbWU9IjEiIGlkPSJfMSI+PHBhdGggZD0iTTM1NC42Nyw0NTBoLTEwN0ExNSwxNSwwLDAsMSwyMzYsNDI1LjY4YTMzLjE4LDMzLjE4LDAsMCwwLDcuMjItMjAuODEsMzMuNTksMzMuNTksMCwwLDAtNjcuMTcsMCwzMy4xOCwzMy4xOCwwLDAsMCw3LjIyLDIwLjgxQTE1LDE1LDAsMCwxLDE3MS40OCw0NTBoLTEwN2ExNSwxNSwwLDAsMS0xNS0xNVYyOTcuMDZhMTUsMTUsMCwwLDEsMjQtMTIsMzMuNTksMzMuNTksMCwxLDAsMC01My43LDE1LDE1LDAsMCwxLTI0LTEyVjE0NC44NmExNSwxNSwwLDAsMSwxNS0xNWg4NC4xNmE2My41OSw2My41OSwwLDEsMSwxMjEuODMsMGg4NC4xNmExNSwxNSwwLDAsMSwxNSwxNXY1Mi4xOWE2My41OSw2My41OSwwLDEsMSwwLDEyMi4zNlY0MzVBMTUsMTUsMCwwLDEsMzU0LjY3LDQ1MFptLTgzLjMyLTMwaDY4LjMyVjI5NC40OGExNSwxNSwwLDAsMSwyNS0xMS4xOCwzMy41OSwzMy41OSwwLDEsMCwwLTUwLjE0LDE1LDE1LDAsMCwxLTI1LTExLjE4VjE1OS44NkgyNDVhMTUsMTUsMCwwLDEtMTAuOTMtMjUuMjcsMzMuNTksMzMuNTksMCwxLDAtNDguOTEsMCwxNSwxNSwwLDAsMS0xMC45MywyNS4yN0g3OS41MnYzNi4zNmE2NC40NSw2NC40NSwwLDAsMSwxNC4yLTEuNTgsNjMuNTksNjMuNTksMCwxLDEtMTQuMiwxMjUuNTlWNDIwaDY4LjMyYTYzLjU5LDYzLjU5LDAsMSwxLDEyMy41MSwwWiIvPjwvZz48L3N2Zz4=" width="16" height="16" style="margin-right: 4px;"/>
+        Other
+      </h5>
+      <button type="button" id="button-air-import" data-section="main" class="nav-button">Trucking</button>
+      <button type="button" id="button-air-export" data-section="main" class="nav-button">Other</button>
+    </div>
 
     <div class="nav-item u-category-windows">
       <h5 class="nav-category">
@@ -58,8 +94,8 @@
       <h5 class="nav-category">
         <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-native-ui"></use></svg>
         Native User Interface</h5>
-      <button type="button" id="button-ex-links-file-manager" data-section="ex-links-file-manager" class="nav-button">Open <em>external links</em> or system <em>file manager</em></button>
-      <button type="button" id="button-notifications" data-section="notifications" class="nav-button"> <em>Notifications</em> with and without custom image</button>
+      <button type="button" id="button-ex-links-file-manager" data-section="ex-links-file-manager" class="nav-button">Open <em>file manager</em></button>
+      <button type="button" id="button-notifications" data-section="notifications" class="nav-button"> <em>Notifications</em></button>
       <button type="button" id="button-dialogs" data-section="dialogs" class="nav-button">Use system <em>dialogs</em></button>
       <button type="button" id="button-tray" data-section="tray" class="nav-button">Put your app in the <em>tray</em></button>
       <button type="button" id="button-drag" data-section="drag" class="nav-button"><em>Drag</em> and drop files</button>
